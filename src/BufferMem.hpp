@@ -1,25 +1,26 @@
-#ifndef _H_BUFFEREX_
-#define _H_BUFFEREX_
+#ifndef _H_BUFFERMEM_
+#define _H_BUFFERMEM_
 
 #include <string>
 using namespace std;
 #include "LineaControl.hpp"
 
-class BufferEx{
+
+class BufferMem{
     private:
         string nombreOperacion;
-        size_t registro, registro2;
-        size_t pos;
+        size_t rd, rt;
         int resultado;
         LineaControl lineaControl;
     public:
-        void opCode(string valor);
-        string opCode();
+        void operacion(string valor);
         void registros(size_t valor, size_t valor2);
-        void calcularOperacion(size_t rs, size_t rt, size_t rd, int signExt);
-        int getResultado();
+        void regWrite(size_t rt, size_t rd, int resultado);
+        void opCode(string valor);
         void iniciarLineaControl(LineaControl &lineaControl);
         LineaControl &getLineaControl();
 };
+
+
 
 #endif

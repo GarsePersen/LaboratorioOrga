@@ -35,3 +35,7 @@ string LineaControl::toString() const{
 void LineaControl::modificarLinea(size_t numero, int valor){
     this->linea[numero] = valor;
 }
+
+int LineaControl::getLinea(size_t pos){
+    return this->linea[pos];
+}

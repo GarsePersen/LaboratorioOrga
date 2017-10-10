@@ -1,8 +1,8 @@
 FLAGS=-Wall -g -std=c++11
 
-all: BufferEx.o BufferId.o BufferIf.o InstruccionFalsa.o BeqFalso.o BEQ.o JFalso.o J.o Label.o SwLw.o TipoR.o TipoInmediato.o LineaControl.o Estado.o Instruccion.o Archivo.o Main.cpp 
+all: BufferMem.o BufferEx.o BufferId.o BufferIf.o InstruccionFalsa.o BeqFalso.o BEQ.o JFalso.o J.o Label.o SwLw.o TipoR.o TipoInmediato.o LineaControl.o Estado.o Instruccion.o Archivo.o Main.cpp 
 	make -C parser
-	g++ $(FLAGS) BufferEx.o BufferId.o BufferIf.o Main.cpp parser/lexer.o parser/parser.o Instruccion.o Archivo.o LineaControl.o Estado.o TipoInmediato.o SwLw.o TipoR.o Label.o BeqFalso.o JFalso.o BEQ.o J.o InstruccionFalsa.o -o lab1
+	g++ $(FLAGS) BufferMem.o BufferEx.o BufferId.o BufferIf.o Main.cpp parser/lexer.o parser/parser.o Instruccion.o Archivo.o LineaControl.o Estado.o TipoInmediato.o SwLw.o TipoR.o Label.o BeqFalso.o JFalso.o BEQ.o J.o InstruccionFalsa.o -o lab1
 
 Archivo.o: Archivo.cpp Archivo.hpp
 	g++ $(FLAGS) -c Archivo.cpp -o Archivo.o
@@ -13,7 +13,10 @@ Instruccion.o: Instruccion.cpp Instruccion.hpp
 estado.o: estado.cpp estado.hpp
 	g++ $(flags) -c estado.cpp -o estado.o
 
-BufferIf.o: BufferEx.cpp BufferEx.hpp
+BufferMem.o: BufferMem.cpp BufferMem.hpp
+	g++ $(flags) -c BufferMem.cpp -o BufferMem.o
+
+BufferEx.o: BufferEx.cpp BufferEx.hpp
 	g++ $(flags) -c BufferEx.cpp -o BufferEx.o
 
 BufferIf.o: BufferIf.cpp BufferIf.hpp

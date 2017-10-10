@@ -13,6 +13,7 @@ class LineaControl{
         int linea[NUMERO_LINEAS_CONTROL];
         string toString() const;
         void modificarLinea(size_t numero, int valor);
+        int getLinea(size_t pos);
 };
 
 

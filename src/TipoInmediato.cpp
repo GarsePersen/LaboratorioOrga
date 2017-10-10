@@ -24,22 +24,34 @@ void TipoInmediato::run(Estado &estado, LineaControl &lineaControl){
     int valorR2 = estado.obtenerValor(this->r2);
     int result;
     
+    lineaControl.modificarLinea(0, 0); 
+    lineaControl.modificarLinea(1, 0);
+    lineaControl.modificarLinea(2, 0);
+    lineaControl.modificarLinea(3, 0);
+    lineaControl.modificarLinea(4, 0);
+    lineaControl.modificarLinea(5, 0);
+    lineaControl.modificarLinea(6, 0);
+    lineaControl.modificarLinea(7, 0);
+    lineaControl.modificarLinea(8, 1);
+    lineaControl.modificarLinea(9, 1);
+
     switch(this->nombre){
         case NombreInstruccion::Addi:
-	        //result = valorR2 + this->valor;
-            estado.pipeline("addi", this->r1, this->r2);
+	     //result = valorR2 + this->valor;
+            estado.pipeline("addi", 0, this->r1, this->r2, this->valor, lineaControl);
             break;
         case NombreInstruccion::Subi:
             //result = valorR2 - this->valor;
-            estado.pipeline("subi", this->r1, this->r2);
+            estado.pipeline("subi", 0, this->r1, this->r2, this->valor, lineaControl);
             break;
         default:
             throw logic_error("La instruccion no corresponde a un TipoInmediato");
     }
+    //estado.modificarRegistro(this->r1, result);
 /*    
     lineaControl.modificarLinea(0, 0); 
     lineaControl.modificarLinea(1, 0);
-    lineaControl.modificarLinea(2, 0);
+    lineaControl.modificarLinea(2, 0);}
     lineaControl.modificarLinea(3, 0);
     lineaControl.modificarLinea(4, 0);
     lineaControl.modificarLinea(5, 0);

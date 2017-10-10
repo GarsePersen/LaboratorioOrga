@@ -3,18 +3,27 @@
 
 #include <string>
 using namespace std;
-
+#include "LineaControl.hpp"
 
 class BufferId{
     private:
         string nombreOperacion;
-        size_t registro, registro2;
-        size_t pos;
+        size_t rs, rt, rd;
+        int valorRs, valorRt, valorRd;
+	    int signExt;
+	    LineaControl lineaControl;
     public:
-        void operacion(string valor);
-        void registros(size_t valor, size_t valor2);
+	    string opCode();
+        size_t getRs();
+	    size_t getRt();
+        size_t getRd();
+        int getValorRs();
+	    int getValorRt();
+        int getValorRd();
+	    int getSignExt();
+        void decode(string valor, int rs, int rt, int rd, int signExt, LineaControl &lineaControl);
+        void setRsRtRd(size_t rs, size_t rt, size_t rd);
+        LineaControl &getLineaControl();
 };
-
-
 
 #endif
