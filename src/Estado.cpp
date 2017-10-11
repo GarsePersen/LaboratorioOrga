@@ -58,9 +58,9 @@ string Estado::toString() const{
     stringstream ss;
     
     for(size_t i = 0; i < NUMERO_REGISTROS; i++){
-        ss << i << "\t" << this->registros[i] << endl;
+        //ss << i << "\t" << this->registros[i] << endl;
     }
-
+    ss << " " << endl;
     return ss.str();
 }
 
@@ -76,88 +76,54 @@ void Estado::modificarCiclo(int valor){
 void Estado::pipeline(string operacion, size_t rs, size_t rt, size_t rd, int signExt, LineaControl &lineaControl){
     int hazard = 0;
     int forwarding = 0;
-    if(this->obtenerCiclo()==0){
-        cout << "Paso if" << endl;
-        bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-    //If+Id
-    }else if(this->obtenerCiclo()==1){
-        cout << "Paso id" << endl;
-	
-	    //Se envian los datos adentro de los registros al id
-        bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
-        
-	
-	    bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-        
-        forwarding = comprobarForwarding(bufferIf, bufferId);
-    //If+Id+Ex
-    }else if(this->obtenerCiclo()==2){
-        cout << "Paso ex" << endl;
-	
-	    bufferEx.opCode(bufferId.opCode());
-        bufferEx.iniciarLineaControl(bufferId.getLineaControl());
-        bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
-	
-        //Se comprueba hazard de datos
-	    hazard = comprobarHazard(bufferId, bufferEx);
-
-
-	    bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
-        
-	
-	    bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-
-    //If+Id+Ex+Mem                
-    }else if(this->obtenerCiclo()==3){
-        cout << "Paso mem" << endl;                
-	
+    if(this->ciclos > 3){
+        if(bufferMem.getLineaControl().getLinea(9) == 1){
+            bufferMem.regWrite();
+            if(bufferMem.getValorRd() == -1){
+                modificarRegistro(bufferMem.getRt(), bufferMem.getValorRt());
+                cout << this->registros[bufferMem.getRt()] << endl;
+            }else{
+                modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
+            } 
+        }
+    }
+    if(this->ciclos > 2){
         bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
-	    
-        
+        bufferMem.setRdRt(bufferEx.getRd(), bufferEx.getRt());
+        bufferMem.setResultado(bufferEx.getResultado());
+    }
+    
+    if(this->ciclos > 1){
         bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
         bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
-        
-	
-	    bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
-        
-	
-	    bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-    //If+Id+Ex+Mem+Wb
-    }else if(this->obtenerCiclo()==4){
-        cout << "Paso wb" << endl;                
-	
-	    bufferEx.opCode(bufferId.opCode());
-        bufferEx.iniciarLineaControl(bufferId.getLineaControl());
-        bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
-        
-	
-	    bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
-        
-	
-	    bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-    }else{
-        cout << "Paso mas del wb" << endl;                
-	
-	    bufferEx.opCode(bufferId.opCode());
-        bufferEx.iniciarLineaControl(bufferId.getLineaControl());
-        bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
-        
-	
-	    bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
-        
-	
-	    bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
+        bufferEx.setRdRt(bufferId.getRd(), bufferId.getRt());
     }
+
+    if(this->ciclos > 0){
+        bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
+        bufferId.setRsRtRd(bufferIf.getRs(), bufferIf.getRt(), bufferIf.getRd());
+        forwarding = comprobarForwarding(bufferIf, bufferId);
+    }
+    
+    bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
+    
+	
+	
+	hazard = comprobarHazard(bufferId, bufferEx);
+
+	
     programCounter(programCounter() + 1);
     modificarCiclo(1);
 	hazard = comprobarHazard(bufferId, bufferMem);
-	if(hazard == 0){
+	
+    if(hazard == 0){
         hazard = comprobarHazard(bufferId, bufferEx);
+    
     }
+    
     forwarding = comprobarForwarding(bufferIf, bufferId);
-    cout << "Hazard: " << hazard << endl;
-    cout << "Forwarding: " << forwarding << endl;
+    
 }
 
 

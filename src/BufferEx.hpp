@@ -8,7 +8,7 @@ using namespace std;
 class BufferEx{
     private:
         string nombreOperacion;
-        size_t registro, registro2;
+        size_t rd, rt;
         size_t pos;
         int resultado;
         LineaControl lineaControl;
@@ -16,8 +16,11 @@ class BufferEx{
         void opCode(string valor);
         string opCode();
         void registros(size_t valor, size_t valor2);
-        void calcularOperacion(size_t rs, size_t rt, size_t rd, int signExt);
+        void calcularOperacion(int rs, int rt, int rd, int signExt);
+        void setRdRt(size_t rt, size_t rd);
         int getResultado();
+        size_t getRt();
+        size_t getRd();
         void iniciarLineaControl(LineaControl &lineaControl);
         LineaControl &getLineaControl();
 };

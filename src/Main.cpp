@@ -61,6 +61,7 @@ int myMain(){
     try{
         bool end_program = false;
         while(!end_program){
+            cout << estado.toString() << endl;
             //Variable que guarda el estado de la linea
             string estadoLinea = "Correcto";
             //Se obtiene el valor del programCounter

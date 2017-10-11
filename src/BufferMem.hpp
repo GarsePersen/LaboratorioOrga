@@ -10,12 +10,18 @@ class BufferMem{
     private:
         string nombreOperacion;
         size_t rd, rt;
-        int resultado;
+        int resultado, valorRt, valorRd;
         LineaControl lineaControl;
     public:
         void operacion(string valor);
         void registros(size_t valor, size_t valor2);
-        void regWrite(size_t rt, size_t rd, int resultado);
+        void regWrite();
+        void setRdRt(size_t rt, size_t rd);
+        size_t getRt();
+        size_t getRd();
+        int getValorRt();
+        int getValorRd();
+        void setResultado(int resultado);
         void opCode(string valor);
         void iniciarLineaControl(LineaControl &lineaControl);
         LineaControl &getLineaControl();

@@ -18,7 +18,7 @@ class Estado{
         BufferIf bufferIf;
         BufferId bufferId;
         BufferEx bufferEx;
-        BufferEx bufferMem;
+        BufferMem bufferMem;
         int registros[NUMERO_REGISTROS];
         void verificarRegistro(size_t numero) const;
     public:
