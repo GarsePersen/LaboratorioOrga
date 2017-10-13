@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "BufferEx.hpp"
 
 void BufferEx::setRdRt(size_t rd, size_t rt){
@@ -28,6 +29,7 @@ void BufferEx::iniciarLineaControl(LineaControl &lineaControl){
 }
 
 void BufferEx::calcularOperacion(int rs, int rt, int rd, int signExt){
+    
     if(this->nombreOperacion == "addi"){
         this->resultado = rs+signExt;
     }else if(this->nombreOperacion == "subi"){
@@ -35,7 +37,6 @@ void BufferEx::calcularOperacion(int rs, int rt, int rd, int signExt){
     }else{
         this->resultado = -1;
     }
-    
 }
 
 int BufferEx::getResultado(){

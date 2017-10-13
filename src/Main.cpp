@@ -74,10 +74,10 @@ int myMain(){
         //Catch del error, significa que termino el programa
     }catch(logic_error e){
         int aux = 0;
-        while(aux<4){
-            auto i = programa.at(0);
-            i->run(estado, lineaControl);
-            aux = aux+1;
+        while(aux < 4){
+            estado.pipeline("",-1,-2,-3,-4, lineaControl);
+            //cout << estado.toString() << endl;
+	    aux = aux+1;
         }
         cout << "El programa ha finalizado exitosamente" << endl;
     }

@@ -13,9 +13,9 @@ void BufferId::setRsRtRd(size_t rs, size_t rt, size_t rd){
 
 void BufferId::decode(string valor, int rs, int rt, int rd, int signExt, LineaControl &lineaControl){
     this->nombreOperacion = valor;
-    this->rs = rs;
-    this->rt = rt;
-    this->rd = rd;
+    this->valorRs = rs;
+    this->valorRt = rt;
+    this->valorRd = rd;
     this->signExt = signExt;
     this->lineaControl = lineaControl;
 }

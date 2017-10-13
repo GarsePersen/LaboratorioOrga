@@ -19,19 +19,20 @@ class Estado{
         BufferId bufferId;
         BufferEx bufferEx;
         BufferMem bufferMem;
-        int registros[NUMERO_REGISTROS];
+        int hazard;
+	int registros[NUMERO_REGISTROS];
         void verificarRegistro(size_t numero) const;
     public:
         Estado();
         int obtenerCiclo();
         void modificarCiclo(int valor);
-        void pipeline(string operacion, size_t rs, size_t rt, size_t rd, int signExt, LineaControl &lineaControl);
+        void pipeline(string operacion, size_t rs, size_t rd, size_t rt, int signExt, LineaControl &lineaControl);
         int programCounter();
         void programCounter(int valor);
         void modificarRegistro(size_t numero, int valor);
         int obtenerValor(size_t numero) const;
-	    int comprobarHazard(BufferId &bufferId, BufferEx &bufferEx);
-	    int comprobarHazard(BufferId &bufferId, BufferMem &bufferMem);
+	    void comprobarHazard(BufferId &bufferId, BufferEx &bufferEx);
+	    void comprobarHazard(BufferId &bufferId, BufferMem &bufferMem);
         int comprobarForwarding(BufferIf &bufferIf, BufferId &bufferId);
         string toString() const;
 };
