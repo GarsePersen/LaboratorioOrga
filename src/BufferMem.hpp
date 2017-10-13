@@ -16,6 +16,7 @@ class BufferMem{
         void operacion(string valor);
         void registros(size_t valor, size_t valor2);
         void regWrite();
+        string opCode();
         void setRdRt(size_t rt, size_t rd);
         size_t getRt();
         size_t getRd();

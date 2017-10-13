@@ -10,6 +10,10 @@ void BufferEx::opCode(string valor){
     this->nombreOperacion = valor;
 }
 
+string BufferEx::opCode(){
+    return this->nombreOperacion;
+}
+
 void BufferEx::registros(size_t valor, size_t valor2){
     this->rd = valor;
     this->rt = valor2;

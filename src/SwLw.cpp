@@ -26,8 +26,7 @@ void SwLw::run(Estado &estado, LineaControl &lineaControl){
     int result;
     switch(this->nombre){
         case NombreInstruccion::Lw:
-	    result = estado.obtenerValor(this->r2);
-            estado.modificarRegistro(this->r1, result);
+	        //result = estado.obtenerValor(this->r2);
             lineaControl.modificarLinea(0, 0); 
             lineaControl.modificarLinea(1, 0);
             lineaControl.modificarLinea(2, 0);
@@ -38,6 +37,8 @@ void SwLw::run(Estado &estado, LineaControl &lineaControl){
             lineaControl.modificarLinea(7, 0);
             lineaControl.modificarLinea(8, 1);
             lineaControl.modificarLinea(9, 1);
+            estado.pipeline("lw", 0, this->r1, this->r2, 0, lineaControl);
+            //estado.modificarRegistro(this->r1, result);
             break;
         case NombreInstruccion::Sw:
             result = estado.obtenerValor(this->r1);

@@ -32,7 +32,7 @@ int main(int argc, char **argv){
  * */
 
 int myMain(){
-    Archivo archivo;
+    //Archivo archivo;
     Estado estado;
     string nombreArchivoEntradaMips;
     string nombreArchivoSalida;
@@ -61,7 +61,7 @@ int myMain(){
     try{
         bool end_program = false;
         while(!end_program){
-            cout << estado.toString() << endl;
+            //cout << estado.toString() << endl;
             //Variable que guarda el estado de la linea
             string estadoLinea = "Correcto";
             //Se obtiene el valor del programCounter
@@ -73,6 +73,12 @@ int myMain(){
         }
         //Catch del error, significa que termino el programa
     }catch(logic_error e){
+        int aux = 0;
+        while(aux<4){
+            auto i = programa.at(0);
+            i->run(estado, lineaControl);
+            aux = aux+1;
+        }
         cout << "El programa ha finalizado exitosamente" << endl;
     }
     //Se escribe archivo de salida

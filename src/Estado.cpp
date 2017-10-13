@@ -55,13 +55,15 @@ void Estado::programCounter(int valor){
  * Entrada: Vacio
  * Salida: String*/
 string Estado::toString() const{
-    stringstream ss;
+    /*stringstream ss;
     
     for(size_t i = 0; i < NUMERO_REGISTROS; i++){
-        //ss << i << "\t" << this->registros[i] << endl;
+        ss << i << "\t" << this->registros[i] << endl;
     }
     ss << " " << endl;
+    
     return ss.str();
+*/  return "1";
 }
 
 int Estado::obtenerCiclo(){
@@ -76,12 +78,23 @@ void Estado::modificarCiclo(int valor){
 void Estado::pipeline(string operacion, size_t rs, size_t rt, size_t rd, int signExt, LineaControl &lineaControl){
     int hazard = 0;
     int forwarding = 0;
+    stringstream ss;
     if(this->ciclos > 3){
+        
+        ss << bufferMem.opCode() << " ";
+
+        for(int aux = 3; aux < this->ciclos; aux++){
+            ss << "    ";
+
+        }
+        ss <<"IF  ID  EX  MEM WB" << endl;
+        cout << ss.str();
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             if(bufferMem.getValorRd() == -1){
                 modificarRegistro(bufferMem.getRt(), bufferMem.getValorRt());
-                cout << this->registros[bufferMem.getRt()] << endl;
+                //cout << "getRt:" << bufferMem.getRt() << endl;
+                //cout << "getValorrt:" <<bufferMem.getValorRt() << endl;
             }else{
                 modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
             } 
@@ -91,8 +104,9 @@ void Estado::pipeline(string operacion, size_t rs, size_t rt, size_t rd, int sig
         bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
         bufferMem.setRdRt(bufferEx.getRd(), bufferEx.getRt());
         bufferMem.setResultado(bufferEx.getResultado());
+        bufferMem.opCode(bufferEx.opCode());
     }
-    
+
     if(this->ciclos > 1){
         bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
@@ -107,7 +121,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rt, size_t rd, int sig
     }
     
     bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-    
 	
 	
 	hazard = comprobarHazard(bufferId, bufferEx);
@@ -119,18 +132,26 @@ void Estado::pipeline(string operacion, size_t rs, size_t rt, size_t rd, int sig
 	
     if(hazard == 0){
         hazard = comprobarHazard(bufferId, bufferEx);
-    
     }
-    
     forwarding = comprobarForwarding(bufferIf, bufferId);
-    
+    cout << "hazard" << hazard << endl;
 }
 
 
 
 
+
+
 int Estado::comprobarHazard(BufferId &bufferId, BufferEx &bufferEx){
-    if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getLineaControl().getLinea(0) != 0) && (bufferEx.getLineaControl().getLinea(0) == bufferId.getLineaControl().getLinea(0))){
+
+    cout <<"|"<<bufferEx.getLineaControl().getLinea(9) <<"-"<<bufferEx.getLineaControl().getLinea(0) <<"-"<< bufferEx.getRd() <<"-" <<bufferId.getRt() << "|";
+
+
+    if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getLineaControl().getLinea(0) != 0) && (bufferEx.getRd() == bufferId.getRs())){
+        return 1;
+    }
+    
+    if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getLineaControl().getLinea(0) != 0) && (bufferEx.getRd() == bufferId.getRt())){
         return 1;
     }
     return 0;
@@ -138,7 +159,10 @@ int Estado::comprobarHazard(BufferId &bufferId, BufferEx &bufferEx){
 
 
 int Estado::comprobarHazard(BufferId &bufferId, BufferMem &bufferMem){
-    if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getLineaControl().getLinea(0) != 0) && (bufferMem.getLineaControl().getLinea(0) == bufferId.getLineaControl().getLinea(0))){
+    if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getLineaControl().getLinea(0) != 0) && (bufferMem.getRd() == bufferId.getRs())){
+        return 1;
+    }
+    if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getLineaControl().getLinea(0) != 0) && (bufferMem.getRd() == bufferId.getRt())){
         return 1;
     }
     return 0;

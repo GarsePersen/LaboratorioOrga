@@ -14,10 +14,10 @@ class BufferEx{
         LineaControl lineaControl;
     public:
         void opCode(string valor);
-        string opCode();
         void registros(size_t valor, size_t valor2);
         void calcularOperacion(int rs, int rt, int rd, int signExt);
         void setRdRt(size_t rt, size_t rd);
+        string opCode();
         int getResultado();
         size_t getRt();
         size_t getRd();

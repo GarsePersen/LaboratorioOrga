@@ -29,6 +29,11 @@ int BufferMem::getValorRd(){
 int BufferMem::getValorRt(){
     return this->valorRt;
 }
+
+string BufferMem::opCode(){
+    return this->nombreOperacion;
+}
+
 void BufferMem::regWrite(){
     if((this->nombreOperacion == "add") || (this->nombreOperacion == "sub")){
         this->valorRd = this->resultado;
