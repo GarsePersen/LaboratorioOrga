@@ -137,7 +137,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
 
 
 void Estado::comprobarHazard(BufferId &bufferId, BufferEx &bufferEx){
-    cout << bufferEx.getRd() <<" "<<bufferId.getRt() << endl;
     if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getRd() == bufferId.getRs())){
         this->hazard = 1;
 	return;
