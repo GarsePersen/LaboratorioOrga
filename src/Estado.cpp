@@ -85,6 +85,10 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
 
     int forwarding = 0;
     //stringstream ss;
+    
+    cout <<"Hazard: "<< this->hazard<<"Ciclo: "<<this->ciclos<<endl;
+    
+
     if(this->ciclos > 3){
         
       //  ss << bufferMem.opCode() << " ";
@@ -96,29 +100,36 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         //ss <<"IF  ID  EX  MEM WB" << endl;
         //cout << ss.str();
         if(bufferMem.getLineaControl().getLinea(9) == 1){
-            if(this->hazard == 1){
-		cout << this->ciclos << endl;
-	    }	    
-	    bufferMem.regWrite();
-            if(bufferMem.getValorRd() == -1){
-                modificarRegistro(bufferMem.getRt(), bufferMem.getValorRt());
-            }else{
+            bufferMem.regWrite();
+            if(bufferMem.opCode() == "addi"){
                 modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
-            } 
+            }else if(bufferMem.opCode() == "add"){
+                cout << bufferMem.getRs() << endl;
+                modificarRegistro(bufferMem.getRs(), bufferMem.getValorRs());
+            } else {
+
+            }
         }
     }
     if(this->ciclos > 2){
         bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
-        bufferMem.setRdRt(bufferEx.getRd(), bufferEx.getRt());
+        bufferMem.setRsRdRt(bufferEx.getRs(), bufferEx.getRd(), bufferEx.getRt());
         bufferMem.setResultado(bufferEx.getResultado());
         bufferMem.opCode(bufferEx.opCode());
     }
 
     if(this->ciclos > 1){
+        
         bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
-        bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
-        bufferEx.setRdRt(bufferId.getRd(), bufferId.getRt());
+        if(this->hazard == 1){
+            bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferEx.getResultado(), bufferId.getSignExt());
+        } else {
+        
+            bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
+        }
+        bufferEx.setRsRdRt(bufferId.getRs(), bufferId.getRd(), bufferId.getRt());
+        //cout << bufferId.opCode() <<" "<< bufferId.getRs() <<" "<< bufferId.getRt() <<" "<< bufferId.getRd() <<" "<< bufferId.getSignExt() << endl;
     }
 
     if(this->ciclos > 0){
@@ -132,7 +143,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     modificarCiclo(1);
     
     forwarding = comprobarForwarding(bufferIf, bufferId);
-    cout << "hazard::: " << hazard << endl;
 }
 
 

@@ -61,7 +61,7 @@ int myMain(){
     try{
         bool end_program = false;
         while(!end_program){
-            //cout << estado.toString() << endl;
+            cout << estado.toString() << endl;
             //Variable que guarda el estado de la linea
             string estadoLinea = "Correcto";
             //Se obtiene el valor del programCounter
@@ -76,7 +76,7 @@ int myMain(){
         int aux = 0;
         while(aux < 4){
             estado.pipeline("",-1,-2,-3,-4, lineaControl);
-            //cout << estado.toString() << endl;
+            cout << estado.toString() << endl;
 	    aux = aux+1;
         }
         cout << "El programa ha finalizado exitosamente" << endl;

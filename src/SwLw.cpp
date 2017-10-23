@@ -41,8 +41,8 @@ void SwLw::run(Estado &estado, LineaControl &lineaControl){
             //estado.modificarRegistro(this->r1, result);
             break;
         case NombreInstruccion::Sw:
-            result = estado.obtenerValor(this->r1);
-            estado.modificarRegistro(this->r2, result);
+            //result = estado.obtenerValor(this->r1);
+            //estado.modificarRegistro(this->r2, result);
             lineaControl.modificarLinea(0, -1); 
             lineaControl.modificarLinea(1, 0);
             lineaControl.modificarLinea(2, 0);
@@ -53,6 +53,7 @@ void SwLw::run(Estado &estado, LineaControl &lineaControl){
             lineaControl.modificarLinea(7, 1);
             lineaControl.modificarLinea(8, 1);
             lineaControl.modificarLinea(9, 0);
+            estado.pipeline("sw", 0, this->r1, this->r2, 0, lineaControl);
             break;
         default:
             throw logic_error("La instruccion no corresponde a un Save/Load word");

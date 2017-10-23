@@ -9,19 +9,21 @@ using namespace std;
 class BufferMem{
     private:
         string nombreOperacion;
-        size_t rd, rt;
-        int resultado, valorRt, valorRd;
+        size_t rd, rt, rs;
+        int resultado, valorRt, valorRd, valorRs;
         LineaControl lineaControl;
     public:
         void operacion(string valor);
         void registros(size_t valor, size_t valor2);
         void regWrite();
         string opCode();
-        void setRdRt(size_t rt, size_t rd);
+        void setRsRdRt(size_t rs, size_t rt, size_t rd);
         size_t getRt();
         size_t getRd();
+        size_t getRs();
         int getValorRt();
         int getValorRd();
+        int getValorRs();
         void setResultado(int resultado);
         void opCode(string valor);
         void iniciarLineaControl(LineaControl &lineaControl);

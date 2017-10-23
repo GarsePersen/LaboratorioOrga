@@ -21,32 +21,10 @@ TipoR::TipoR(string nombre, string r1, string r2, string r3): Instruccion(nombre
  * Entrada: Clase Estado, Clase LineaControl
  * Salida: Void*/
 void TipoR::run(Estado &estado, LineaControl &lineaControl){
-    int valorR2 = estado.obtenerValor(this->r2);
+    // int valorR2 = estado.obtenerValor(this->r2);
     int valorR3 = estado.obtenerValor(this->r3);
-    int result;
+    //int result;
     
-    switch(this->nombre){
-        case NombreInstruccion::Add:
-            result = valorR2 + valorR3;
-            break;
-        case NombreInstruccion::Sub:
-            result = valorR2 - valorR3;
-            break;
-        case NombreInstruccion::Mul:
-            result = valorR2 * valorR3;
-            break;
-        case NombreInstruccion::Div:
-	    //Verifica que no se divida por cero
-	    if(valorR3 == 0){
-                result = 0;
-            }else{
-                result = valorR2 / valorR3;
-	    }
-            break;
-        default:
-            throw logic_error("La instruccion no corresponde a un TipoR");
-    }
-
     lineaControl.modificarLinea(0, 1);
     lineaControl.modificarLinea(1, 0);
     lineaControl.modificarLinea(2, 0);
@@ -57,8 +35,31 @@ void TipoR::run(Estado &estado, LineaControl &lineaControl){
     lineaControl.modificarLinea(7, 0);
     lineaControl.modificarLinea(8, 0);
     lineaControl.modificarLinea(9, 1);
+    switch(this->nombre){
+        case NombreInstruccion::Add:
+            estado.pipeline("add", this->r1, this->r2, this->r3, 0, lineaControl);
+            //result = valorR2 + valorR3;
+            break;
+        case NombreInstruccion::Sub:
+            //result = valorR2 - valorR3;
+            break;
+        case NombreInstruccion::Mul:
+            //result = valorR2 * valorR3;
+            break;
+        case NombreInstruccion::Div:
+            //Verifica que no se divida por cero
+            if(valorR3 == 0){
+                //result = 0;
+            }else{
+                //  result = valorR2 / valorR3;
+            }
+            break;
+        default:
+            throw logic_error("La instruccion no corresponde a un TipoR");
+    }
+
     
-    estado.programCounter(estado.programCounter() + 1);
-    estado.modificarRegistro(this->r1, result);
+//    estado.programCounter(estado.programCounter() + 1);
+  //  estado.modificarRegistro(this->r1, result);
 }
 
