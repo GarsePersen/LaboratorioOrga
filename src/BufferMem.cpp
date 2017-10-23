@@ -46,14 +46,13 @@ string BufferMem::opCode(){
 void BufferMem::regWrite(){
     if((this->nombreOperacion == "addi") || (this->nombreOperacion == "subi")){
         this->valorRd = this->resultado;
-    }else if(this->nombreOperacion == "add"){
-        this->valorRs = this->resultado;
+    }else if((this->nombreOperacion == "add") || (this->nombreOperacion == "sub") || (this->nombreOperacion == "mul") || (this->nombreOperacion == "div")){
+        this->valorRd = this->resultado;
+    }else if(this->nombreOperacion == "lw"){
+        this->valorRd = this->resultado;
     }
-    
-    
     else{
         this->valorRt = this->resultado;
-        this->valorRd = -1;
     }
 }
 

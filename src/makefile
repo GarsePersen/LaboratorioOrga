@@ -1,8 +1,9 @@
 FLAGS=-Wall -g -std=c++11
 
 all: BufferMem.o BufferEx.o BufferId.o BufferIf.o InstruccionFalsa.o BeqFalso.o BEQ.o JFalso.o J.o Label.o SwLw.o TipoR.o TipoInmediato.o LineaControl.o Estado.o Instruccion.o Archivo.o Main.cpp 
-	make -C parser
-	g++ $(FLAGS) BufferMem.o BufferEx.o BufferId.o BufferIf.o Main.cpp parser/lexer.o parser/parser.o Instruccion.o Archivo.o LineaControl.o Estado.o TipoInmediato.o SwLw.o TipoR.o Label.o BeqFalso.o JFalso.o BEQ.o J.o InstruccionFalsa.o -o lab1
+	g++ -c lex.yy.c -o lexer.o
+	g++ -c sintactico.tab.c -o parser.o
+	g++ $(FLAGS) BufferMem.o BufferEx.o BufferId.o BufferIf.o Main.cpp lexer.o parser.o Instruccion.o Archivo.o LineaControl.o Estado.o TipoInmediato.o SwLw.o TipoR.o Label.o BeqFalso.o JFalso.o BEQ.o J.o InstruccionFalsa.o -o lab1
 
 Archivo.o: Archivo.cpp Archivo.hpp
 	g++ $(FLAGS) -c Archivo.cpp -o Archivo.o

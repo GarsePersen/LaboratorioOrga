@@ -70,13 +70,13 @@
     #include <iostream>
     #include <vector>
     #include "lexico.h"
-    #include "../TipoInmediato.hpp"
-    #include "../Instruccion.hpp"
-    #include "../Label.hpp"
-    #include "../JFalso.hpp"
-    #include "../BeqFalso.hpp"
-    #include "../TipoR.hpp"
-    #include "../SwLw.hpp"
+    #include "TipoInmediato.hpp"
+    #include "Instruccion.hpp"
+    #include "Label.hpp"
+    #include "JFalso.hpp"
+    #include "BeqFalso.hpp"
+    #include "TipoR.hpp"
+    #include "SwLw.hpp"
     using namespace std;
     void yyerror(char *s);
     extern int yylineno;

@@ -37,14 +37,16 @@ void TipoR::run(Estado &estado, LineaControl &lineaControl){
     lineaControl.modificarLinea(9, 1);
     switch(this->nombre){
         case NombreInstruccion::Add:
-            estado.pipeline("add", this->r1, this->r2, this->r3, 0, lineaControl);
+            estado.pipeline("add", this->r2, this->r1, this->r3, 0, lineaControl);
             //result = valorR2 + valorR3;
             break;
         case NombreInstruccion::Sub:
             //result = valorR2 - valorR3;
+            estado.pipeline("sub", this->r2, this->r1, this->r3, 0, lineaControl);
             break;
         case NombreInstruccion::Mul:
             //result = valorR2 * valorR3;
+            estado.pipeline("mul", this->r2, this->r1, this->r3, 0, lineaControl);
             break;
         case NombreInstruccion::Div:
             //Verifica que no se divida por cero
@@ -52,6 +54,7 @@ void TipoR::run(Estado &estado, LineaControl &lineaControl){
                 //result = 0;
             }else{
                 //  result = valorR2 / valorR3;
+                estado.pipeline("div", this->r2, this->r1, this->r3, 0, lineaControl);
             }
             break;
         default:

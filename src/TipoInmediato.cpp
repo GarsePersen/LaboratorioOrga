@@ -38,11 +38,11 @@ void TipoInmediato::run(Estado &estado, LineaControl &lineaControl){
     switch(this->nombre){
         case NombreInstruccion::Addi:
 	     //result = valorR2 + this->valor;
-            estado.pipeline("addi", 0, this->r1, this->r2, this->valor, lineaControl);
+            estado.pipeline("addi", this->r2, this->r1, 0, this->valor, lineaControl);
             break;
         case NombreInstruccion::Subi:
             //result = valorR2 - this->valor;
-            estado.pipeline("subi", 0, this->r1, this->r2, this->valor, lineaControl);
+            estado.pipeline("subi", this->r2, this->r1, 0, this->valor, lineaControl);
             break;
         default:
             throw logic_error("La instruccion no corresponde a un TipoInmediato");

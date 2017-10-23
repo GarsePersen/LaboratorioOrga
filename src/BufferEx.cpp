@@ -31,14 +31,20 @@ void BufferEx::iniciarLineaControl(LineaControl &lineaControl){
 
 void BufferEx::calcularOperacion(int rs, int rt, int rd, int signExt){
     if(this->nombreOperacion == "addi"){
-        this->resultado = rd+signExt;
+        this->resultado = rs+signExt;
     }else if(this->nombreOperacion == "subi"){
-        this->resultado = rd-signExt;
+        this->resultado = rs-signExt;
     }else if(this->nombreOperacion == "add"){
-        this->resultado = rt+rd;
+        this->resultado = rs+rt;
+    }else if(this->nombreOperacion == "sub"){
+        this->resultado = rs-rt;
+    }else if(this->nombreOperacion == "mul"){
+        this->resultado = rs*rt;
+    }else if(this->nombreOperacion == "div"){
+        this->resultado = rs/rt;
+    }else if(this->nombreOperacion == "lw"){
+        this->resultado = rt;
     }
-    
-    
     else{
         this->resultado = -1;
     }

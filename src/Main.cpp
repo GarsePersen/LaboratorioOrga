@@ -74,6 +74,16 @@ int myMain(){
         //Catch del error, significa que termino el programa
     }catch(logic_error e){
         int aux = 0;
+        lineaControl.modificarLinea(0, 0); 
+        lineaControl.modificarLinea(1, 0);
+        lineaControl.modificarLinea(2, 0);
+        lineaControl.modificarLinea(3, 0);
+        lineaControl.modificarLinea(4, 0);
+        lineaControl.modificarLinea(5, 0);
+        lineaControl.modificarLinea(6, 0);
+        lineaControl.modificarLinea(7, 0);
+        lineaControl.modificarLinea(8, 0);
+        lineaControl.modificarLinea(9, 0);
         while(aux < 4){
             estado.pipeline("",-1,-2,-3,-4, lineaControl);
             cout << estado.toString() << endl;

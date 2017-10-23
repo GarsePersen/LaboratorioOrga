@@ -1,2 +1,3 @@
-addi $t1, $t1, 1
-add $t2, $t1, $t1
+addi $sp, $t2, 10
+lw $t1, 0($sp)
+addi $t2, $t1, $t1

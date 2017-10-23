@@ -20,7 +20,8 @@ class Estado{
         BufferEx bufferEx;
         BufferMem bufferMem;
         int hazard;
-	int registros[NUMERO_REGISTROS];
+	    int forwarding;
+        int registros[NUMERO_REGISTROS];
         void verificarRegistro(size_t numero) const;
     public:
         Estado();
@@ -33,7 +34,7 @@ class Estado{
         int obtenerValor(size_t numero) const;
 	    void comprobarHazard(BufferId &bufferId, BufferEx &bufferEx);
 	    void comprobarHazard(BufferId &bufferId, BufferMem &bufferMem);
-        int comprobarForwarding(BufferIf &bufferIf, BufferId &bufferId);
+        void comprobarForwarding(BufferIf &bufferIf, BufferId &bufferId);
         string toString() const;
 };
 
