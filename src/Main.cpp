@@ -2,6 +2,7 @@
 #include <vector>
 #include <stdexcept>
 #include <fstream>
+#include <cstring>
 using namespace std;
 
 #include "Instruccion.hpp"
@@ -37,10 +38,12 @@ int myMain(){
     string nombreArchivoEntradaMips;
     string nombreArchivoSalida;
     string nombreArchivoSalidaHazard;
-    string nombreArchivoEntradaLineas;
+    string nombreArchivoEntradaRegistros;
     //Se piden los archivos de entrada y salida al usuario
     cout << "Ingrese el nombre del archivo con las instrucciones mips: ";
     cin >> nombreArchivoEntradaMips;
+    cout << "Ingrese el nombre del archivo con los valores iniciales de los registros: ";
+    cin >> nombreArchivoEntradaRegistros;
     cout << "Ingrese el nombre del archivo de salida de la traza: ";
     cin >> nombreArchivoSalida; 
     cout << "Ingrese el nombre del archivo de salida de hazard: ";
@@ -53,10 +56,22 @@ int myMain(){
         cout << "El archivo de entrada de las instrucciones mips no existe.\n";
     	return -1;
     }
+    
+    vector<string> registrosIniciales = archivo.archivoEntrada(nombreArchivoEntradaRegistros);
+
+    //Se establecen los valores de los registros iniciales
+    int i = 0;
+    for(auto it = registrosIniciales.begin(); it != registrosIniciales.end(); it++){
+        cout << registrosIniciales[i] << endl;
+        if(i%2 == 0){
+            //estado.modificarRegistro(i/2, atoi(registrosIniciales[i+1].c_str())); 
+        }
+        i=i+1;
+    }
+
+    cout << estado.toString() << endl;
     //Se crea vector que contiene las instrucciones del programa
     vector<Instruccion*> programa = getInstrucciones();
-    //Se crea vector con las lineas de control de la entrada
-    vector<int> lineaControlEntrada;
     //Se transforman los labels del archivo de entrada
     transformarLabels(programa); 
     LineaControl lineaControl;
@@ -74,7 +89,7 @@ int myMain(){
             auto i = programa.at(estado.programCounter());
             //Se ejecuta la linea
             i->run(estado, lineaControl);
-            cout << estado.toString() << endl;
+            //cout << estado.toString() << endl;
         }
         //Catch del error, significa que termino el programa
     }catch(logic_error e){
@@ -91,7 +106,7 @@ int myMain(){
         while((estado.bufferWbOpCode != "")||(estado.obtenerCiclo()<6)){
 	    
             estado.pipeline("",-1,-2,-3,-4, lineaControl);
-            cout << estado.toString() << endl;
+            //cout << estado.toString() << endl;
         }
         cout << "El programa ha finalizado exitosamente" << endl;
     }

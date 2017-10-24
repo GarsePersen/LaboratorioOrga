@@ -1,104 +1,18 @@
 ,IF,ID,EX,MEM,WB
 Ciclo: 1,addi,,,,
-Ciclo: 2,beq,addi,,,
-Ciclo: 3,addi,beq,addi,,
-Ciclo: 4,addi,addi,beq,addi,
-Ciclo: 5,addi,addi,addi,beq,addi
-Ciclo: 6,addi,addi,addi,addi,beq
-Ciclo: 7,addi,addi,addi,addi,addi
-Ciclo: 8,addi,addi,addi,addi,addi
-Ciclo: 9,addi,addi,addi,addi,addi
-Ciclo: 10,addi,addi,addi,addi,addi
-Ciclo: 11,,addi,addi,addi,addi
-Ciclo: 12,,,addi,addi,addi
-Ciclo: 13,,,,addi,addi
-Ciclo: 14,,,,,addi
-Ciclo: 15,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,addi,addi,beq,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,addi,addi,beq,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,addi,addi,beq,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,addi,addi,beq,
-Ciclo: 5,,addi,addi,addi,beq
-Ciclo: 6,,,addi,addi,addi
-Ciclo: 7,,,,addi,addi
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,addi,addi,beq,
-Ciclo: 5,,addi,addi,addi,beq
-Ciclo: 6,,,addi,addi,addi
-Ciclo: 7,,,,addi,addi
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,addi,addi,beq,
-Ciclo: 5,,addi,addi,addi,beq
-Ciclo: 6,,,addi,addi,addi
-Ciclo: 7,,,,addi,addi
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,nop,nop,nop,
-Ciclo: 5,,addi,nop,nop,nop
-Ciclo: 6,,,addi,nop,nop
-Ciclo: 7,,,,addi,nop
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,nop,nop,nop,
-Ciclo: 5,,addi,nop,nop,nop
-Ciclo: 6,,,addi,nop,nop
-Ciclo: 7,,,,addi,nop
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,nop,nop,nop,
-Ciclo: 5,,addi,nop,nop,nop
-Ciclo: 6,,,addi,nop,nop
-Ciclo: 7,,,,addi,nop
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
-,IF,ID,EX,MEM,WB
-Ciclo: 1,beq,,,,
-Ciclo: 2,addi,beq,,,
-Ciclo: 3,addi,addi,beq,,
-Ciclo: 4,addi,nop,nop,nop,
-Ciclo: 5,,addi,nop,nop,nop
-Ciclo: 6,,,addi,nop,nop
-Ciclo: 7,,,,addi,nop
-Ciclo: 8,,,,,addi
-Ciclo: 9,,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,mul,subi,addi,beq,addi
+Ciclo: 7,add,mul,subi,addi,beq
+Ciclo: 8,addi,add,mul,subi,addi
+Ciclo: 9,sw,addi,add,mul,subi
+Ciclo: 10,,sw,addi,add,mul
+Ciclo: 11,,,sw,addi,add
+Ciclo: 12,,,,sw,addi
+Ciclo: 13,,,,,sw
+Ciclo: 14,,,,,
 ,IF,ID,EX,MEM,WB
 Ciclo: 1,addi,,,,
 Ciclo: 2,addi,addi,,,
@@ -114,3 +28,236 @@ Ciclo: 11,,,sw,addi,add
 Ciclo: 12,,,,sw,addi
 Ciclo: 13,,,,,sw
 Ciclo: 14,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,nop,nop,nop,addi
+Ciclo: 7,,,nop,nop,nop
+Ciclo: 8,,,,nop,nop
+Ciclo: 9,,,,,nop
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,lw,,,,
+Ciclo: 2,add,lw,,,
+Ciclo: 3,addi,add,lw,,
+Ciclo: 4,sub,addi,add,lw,
+Ciclo: 5,sw,sub,addi,add,lw
+Ciclo: 6,addi,sw,sub,addi,add
+Ciclo: 7,,addi,sw,sub,addi
+Ciclo: 8,,,addi,sw,sub
+Ciclo: 9,,,,addi,sw
+Ciclo: 10,,,,,addi
+Ciclo: 11,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,sw,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,sw,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,sw,FLUSH,FLUSH
+Ciclo: 9,,,,sw,FLUSH
+Ciclo: 10,,,,,sw
+Ciclo: 11,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+,Control,Datos
+Ciclo: 1,addi,,,,
+Ciclo: 1,-,- -
+Ciclo: 2,addi,addi,,,
+Ciclo: 2,-,- -
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 3,-,- -
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 4,-,- -
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 5,-,$t0 -
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 6,X,- -
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 7,-,- -
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 8,-,- -
+Ciclo: 9,,,,,FLUSH
+Ciclo: 9,-,- -
+Ciclo: 10,,,,,
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,

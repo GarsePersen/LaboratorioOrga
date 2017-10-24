@@ -1,116 +1,245 @@
 ,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,$t1 -
-Ciclo: 5,0,$t1 -
-Ciclo: 6,0,$t1 -
-Ciclo: 7,0,$t1 -
-Ciclo: 8,0,$t1 -
-Ciclo: 9,0,$t1 -
-Ciclo: 10,0,$t1 -
-Ciclo: 11,0,$t1 -
-Ciclo: 12,0,- -
-Ciclo: 13,0,- -
-Ciclo: 14,0,- -
-Ciclo: 15,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-Ciclo: 5,0,$t1 -
-Ciclo: 6,0,- -
-Ciclo: 7,0,- -
-Ciclo: 8,0,- -
-Ciclo: 9,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-Ciclo: 5,0,$t1 -
-Ciclo: 6,0,- -
-Ciclo: 7,0,- -
-Ciclo: 8,0,- -
-Ciclo: 9,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-Ciclo: 5,0,$t1 -
-Ciclo: 6,0,$t2 -
-Ciclo: 7,0,- -
-Ciclo: 8,0,- -
-Ciclo: 9,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,0,- -
-Ciclo: 5,0,- -
-Ciclo: 6,0,- -
-Ciclo: 7,0,- -
-Ciclo: 8,0,- -
-Ciclo: 9,0,- -
-,Control,Datos
-Ciclo: 1,0,- -
-Ciclo: 2,0,- -
-Ciclo: 3,0,- -
-Ciclo: 4,1,- -
-Ciclo: 5,0,- -
-Ciclo: 6,0,- -
-Ciclo: 7,0,- -
-Ciclo: 8,0,- -
-Ciclo: 9,0,- -
-,Control,Datos
-Ciclo: 1,,- -
+Ciclo: 1,-,- -
 Ciclo: 2,-,- -
 Ciclo: 3,-,- -
-Ciclo: 4,X,- -
-Ciclo: 5,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 $t1
+-,$t1 -
 Ciclo: 6,-,- -
-Ciclo: 7,-,- -
-Ciclo: 8,-,- -
-Ciclo: 9,-,- -
+Ciclo: 7,-,$t1 -
+Ciclo: 8,-,$t2 $t2
+Ciclo: 9,-,$t2 $t2
+Ciclo: 10,-,- -
+Ciclo: 11,-,$t7 -
+-,- -
+Ciclo: 12,-,- -
+Ciclo: 13,-,- -
+Ciclo: 14,-,- -
 ,Control,Datos
 Ciclo: 1,-,- -
 Ciclo: 2,-,- -
 Ciclo: 3,-,- -
-Ciclo: 4,X,- -
-Ciclo: 5,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 $t1
+-,$t1 -
 Ciclo: 6,-,- -
-Ciclo: 7,-,- -
-Ciclo: 8,-,- -
-Ciclo: 9,-,- -
+Ciclo: 7,-,$t1 -
+Ciclo: 8,-,$t2 $t2
+Ciclo: 9,-,$t2 $t2
+Ciclo: 10,-,- -
+Ciclo: 11,-,$t7 -
+-,- -
+Ciclo: 12,-,- -
+Ciclo: 13,-,- -
+Ciclo: 14,-,- -
 ,Control,Datos
 Ciclo: 1,-,- -
 Ciclo: 2,-,- -
 Ciclo: 3,-,- -
 Ciclo: 4,-,- -
 Ciclo: 5,-,$t0 -
-Ciclo: 6,-,- -
-Ciclo: 7,-,$t1 -
-Ciclo: 8,-,$t2 $t2
-Ciclo: 9,-,$t2 $t2
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
 Ciclo: 10,-,- -
-Ciclo: 11,-,- $t7
-Ciclo: 12,-,- -
-Ciclo: 13,-,- -
-Ciclo: 14,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- $t1
+Ciclo: 5,-,- -
+Ciclo: 6,-,$t2 -
+Ciclo: 7,-,- $t2
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+Ciclo: 11,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+Ciclo: 11,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,IF,ID,EX,MEM,WB
+Ciclo: 1,addi,,,,
+Ciclo: 2,addi,addi,,,
+Ciclo: 3,beq,addi,addi,,
+Ciclo: 4,addi,beq,addi,addi,
+Ciclo: 5,subi,addi,beq,addi,addi
+Ciclo: 6,,FLUSH,FLUSH,FLUSH,addi
+Ciclo: 7,,,FLUSH,FLUSH,FLUSH
+Ciclo: 8,,,,FLUSH,FLUSH
+Ciclo: 9,,,,,FLUSH
+Ciclo: 10,,,,,
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+,Control,Datos
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- -
+Ciclo: 5,-,$t0 -
+Ciclo: 6,X,- -
+Ciclo: 7,-,- -
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -

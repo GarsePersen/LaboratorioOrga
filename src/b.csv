@@ -1,5 +1,4 @@
 ,IF,ID,EX,MEM,WB
-Ciclo: 0,,,,,
 Ciclo: 1,lw,,,,
 Ciclo: 2,add,lw,,,
 Ciclo: 3,addi,add,lw,,
@@ -10,3 +9,4 @@ Ciclo: 7,,addi,sw,sub,addi
 Ciclo: 8,,,addi,sw,sub
 Ciclo: 9,,,,addi,sw
 Ciclo: 10,,,,,addi
+Ciclo: 11,,,,,

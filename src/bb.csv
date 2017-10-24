@@ -1,16 +1,12 @@
 ,Control,Datos
-Ciclo: 0,0, 
-Ciclo: 1,0, 
-Ciclo: 2,0, 
-Ciclo: 3,0, 
-Ciclo: 4,0, $t1
-Ciclo: 5,0, $t1
-Ciclo: 6,0,$t2 $t1
-Ciclo: 7,0,$t2 
-
-Ciclo: 8,0,$t2 
-
-Ciclo: 9,0,$t2 
-
-Ciclo: 10,0,$t2 
-
+Ciclo: 1,-,- -
+Ciclo: 2,-,- -
+Ciclo: 3,-,- -
+Ciclo: 4,-,- $t1
+Ciclo: 5,-,- -
+Ciclo: 6,-,$t2 -
+Ciclo: 7,-,- $t2
+Ciclo: 8,-,- -
+Ciclo: 9,-,- -
+Ciclo: 10,-,- -
+Ciclo: 11,-,- -

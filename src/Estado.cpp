@@ -12,6 +12,8 @@ Estado::Estado(){
     }
     this->hazardControl = "-";
     this->ciclos = 1;
+    this->hazardR1 = "-";
+    this->hazardR2 = "-";
 }
 
 /* Funcion que verifica si el registro se puede modificar, es decir, esta entre el registro cero y treinta y dos
@@ -148,7 +150,7 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     comprobarForwarding(bufferIf, bufferId);
     //Si forwarding es 1, se aumenta un ciclo las instrucciones que seguian, y antes del lw se agrega un nop
     if(this->forwarding == 1){
-	this->bufferWbOpCode=bufferMem.opCode();
+        this->bufferWbOpCode=bufferMem.opCode();
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
@@ -157,8 +159,8 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         bufferMem.setRsRdRt(bufferEx.getRs(), bufferEx.getRd(), bufferEx.getRt());
         bufferMem.setResultado(bufferEx.getResultado());
         bufferMem.opCode(bufferEx.opCode());
-       	bufferEx.saltar = 0; 
-	bufferEx.opCode(bufferId.opCode());
+        bufferEx.saltar = 0; 
+        bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
         bufferEx.calcularOperacion(bufferId.getValorRs(), bufferEx.getResultado(), bufferId.getValorRd(), bufferId.getSignExt());	
         bufferEx.setRsRdRt(bufferId.getRs(), bufferId.getRd(), bufferId.getRt());
@@ -172,43 +174,49 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         lineaControl.modificarLinea(7, 0);
         lineaControl.modificarLinea(8, 0);
         lineaControl.modificarLinea(9, 0);
-        bufferId.decode("nop", -1, -2, -3, -4, lineaControl);
+        bufferId.decode("NOP", -1, -2, -3, -4, lineaControl);
         bufferId.setRsRtRd(0, 1, 2);
-    	modificarCiclo(1);
-	return;
+        modificarCiclo(1);
+        return;
     }
-	
+
     comprobarHazard(bufferId, bufferMem);
-	
+
     if(this->hazardDatos == 0){
         comprobarHazard(bufferId, bufferEx);
     }
 
-    
-    
+
+
     //Esta parte es de la etapa WB, la cual no tiene buffer
     if(this->ciclos > 4){
-	//Si escribe en memoria
+        //Si escribe en memoria
         if(bufferMem.getLineaControl().getLinea(7) == 1){
-		bufferMem.memWrite();
-		modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
-	}
+            bufferMem.memWrite();
+            modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
+        }
         //Si escribe en registro
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
         }
-	this->bufferWbOpCode=bufferMem.opCode();
+        this->bufferWbOpCode=bufferMem.opCode();
     }
     if(this->ciclos > 3){
+        if(this->hazardDatos == 4){
+            bufferMem.setResultado(bufferMem.getValorRd());
+
+        } else {
+            bufferMem.setResultado(bufferEx.getResultado());
+
+        }
         bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
         bufferMem.setRsRdRt(bufferEx.getRs(), bufferEx.getRd(), bufferEx.getRt());
-        bufferMem.setResultado(bufferEx.getResultado());
         bufferMem.opCode(bufferEx.opCode());
     }
 
     if(this->ciclos > 2){
-        
+
         bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
         if(this->hazardDatos == 1){
@@ -240,9 +248,9 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     archivo.escribirArchivoSalidaHazard(ssHazard.str(), this->nombreArchivoSalidaHazard);
     //Si el beq salta
     if(bufferEx.saltar == 1){
-	this->hazardControl = "X";
+        this->hazardControl = "X";
         programCounter(bufferEx.getRd());
-	bufferEx.saltar = 0;
+        bufferEx.saltar = 0;
         lineaControl.modificarLinea(0, 0); 
         lineaControl.modificarLinea(1, 0);
         lineaControl.modificarLinea(2, 0);
@@ -253,15 +261,15 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         lineaControl.modificarLinea(7, 0);
         lineaControl.modificarLinea(8, 0);
         lineaControl.modificarLinea(9, 0);
-	bufferEx.opCode("nop");
-	bufferId.decode("nop", 0, 0, 0, 0, lineaControl);
-	bufferIf.operacion("nop",0,0,0,0,lineaControl); 
+        bufferEx.opCode("FLUSH");
+        bufferId.decode("FLUSH", 0, 0, 0, 0, lineaControl);
+        bufferIf.operacion("FLUSH",0,0,0,0,lineaControl); 
 
 
-	modificarCiclo(1);
-	return;
+        modificarCiclo(1);
+        return;
     } else {
-	this->hazardControl = "-";
+        this->hazardControl = "-";
     }
     programCounter(programCounter() + 1);
     modificarCiclo(1);
@@ -300,20 +308,20 @@ void Estado::comprobarHazard(BufferId &bufferId, BufferMem &bufferMem){
     this->hazardR1 = "-";
     this->hazardR2 = "-";
     if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getRd() == bufferId.getRs()) && (bufferMem.getRd() == bufferId.getRt())){
-        this->hazardDatos = 3;
+        this->hazardDatos = 4;
 	this->hazardR1 = this->regToStr(bufferId.getRs());
 	this->hazardR2 = this->regToStr(bufferId.getRt());
         return;
     }
     if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getRd() == bufferId.getRs())){
-        this->hazardDatos = 1;
-	this->hazardR1 = bufferId.getRs();
+        this->hazardDatos = 4;
+	this->hazardR1 = this->regToStr(bufferId.getRs());
 	this->hazardR1 = this->regToStr(bufferId.getRs());
         return;
     }
     if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getRd() == bufferId.getRt())){
-        this->hazardDatos = 2;
-	this->hazardR2 = bufferId.getRt();
+        this->hazardDatos = 4;
+	this->hazardR2 = this->regToStr(bufferId.getRt());
 	this->hazardR2 = this->regToStr(bufferId.getRt());
         return;
     }
