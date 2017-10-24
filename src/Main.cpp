@@ -67,7 +67,7 @@ int myMain(){
             auto i = programa.at(estado.programCounter());
             //Se ejecuta la linea
             i->run(estado, lineaControl);
-            cout << estado.toString() << endl;
+            //cout << estado.toString() << endl;
         }
         //Catch del error, significa que termino el programa
     }catch(logic_error e){
@@ -84,7 +84,7 @@ int myMain(){
         lineaControl.modificarLinea(9, 0);
         while(aux < 4){
             estado.pipeline("",-1,-2,-3,-4, lineaControl);
-            cout << estado.toString() << endl;
+            //cout << estado.toString() << endl;
 	    aux = aux+1;
         }
         cout << "El programa ha finalizado exitosamente" << endl;

@@ -55,8 +55,7 @@ void Estado::programCounter(int valor){
  * Entrada: Vacio
  * Salida: String*/
 string Estado::toString() const{
-    stringstream ss;
-    
+    stringstream ss;    
     for(size_t i = 0; i < NUMERO_REGISTROS; i++){
         ss << i << "\t" << this->registros[i] << endl;
     }
@@ -75,9 +74,16 @@ void Estado::modificarCiclo(int valor){
 
 
 void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int signExt, LineaControl &lineaControl){
+    stringstream ss;
     
+    ss << "Ciclo: " << this->ciclos << "   ";
+    ss << bufferIf.getOpCode() <<"   "; 
+    ss << bufferId.opCode()<<"   ";
+    ss << bufferEx.opCode() << "   ";
+    ss << bufferMem.opCode() << endl;
+    Archivo archivo;
+    archivo.escribirArchivoSalida(ss.str());
     comprobarForwarding(bufferIf, bufferId);
-    cout << "forwarding: "<<this->forwarding << endl;
     //Si forwarding es 1, se aumenta un ciclo las instrucciones que seguian, y antes del lw se agrega un nop
     if(this->forwarding == 1){
         if(bufferMem.getLineaControl().getLinea(9) == 1){
@@ -106,6 +112,7 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         bufferId.decode("nop", -1, -2, -3, -4, lineaControl);
         bufferId.setRsRtRd(0, 1, 2);
     	modificarCiclo(1);
+	return;
     }
 	
     comprobarHazard(bufferId, bufferMem);
@@ -114,13 +121,10 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         comprobarHazard(bufferId, bufferEx);
     }
 
-    stringstream ss;
     
     
 
-    if(this->ciclos > 3){
-        
-        cout << ss.str();
+    if(this->ciclos > 3){ 
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
@@ -156,7 +160,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     }
     
     bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
-    
     programCounter(programCounter() + 1);
     modificarCiclo(1);
 }

@@ -5,6 +5,14 @@
 #include "Archivo.hpp"
 using namespace std;
 
+void Archivo::escribirArchivoSalida(string salida){
+    ofstream myfile;
+    myfile.open ("example.csv", ios_base::app);
+    myfile << salida;;
+    myfile.close();
+}
+
+
 /* Funcion que escribe en el archivo de salida
  * Entrada: Vector<string> lineaControlSalida, string nombre
  * Salida: Void

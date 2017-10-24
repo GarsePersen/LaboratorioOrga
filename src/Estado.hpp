@@ -8,6 +8,7 @@ using namespace std;
 #include "BufferEx.hpp"
 #include "BufferMem.hpp"
 #include "LineaControl.hpp"
+#include "Archivo.hpp"
 
 #define NUMERO_REGISTROS 33
 
