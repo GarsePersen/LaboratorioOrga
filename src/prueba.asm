@@ -1,6 +1,12 @@
-lw $t1, 0($sp)
-add $t0, $t0, $t1
-addi $t2, $zero, 3
-sub $t3, $t2, $t1
-sw $t2, 0($sp)
-addi $s0, $t2, 1
+addi $t0, $zero, 2
+addi $t1, $zero, 2
+beq $t0, $t1, NEXT
+addi $t1, $t0, 3
+subi $t2, $t1, 1
+mul $t2, $t2, $t2
+add $t7, $t2, $t2
+addi $sp, $sp, -8
+sw $t7, 0($sp)
+
+NEXT:
+add $t1, $t0, 1

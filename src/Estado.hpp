@@ -21,7 +21,7 @@ class Estado{
         BufferEx bufferEx;
         BufferMem bufferMem;
         int hazardDatos;
-        int hazardControl;
+        string hazardControl;
 	int forwarding;
 	string hazardR1, hazardR2;
         int registros[NUMERO_REGISTROS];

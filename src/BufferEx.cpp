@@ -46,6 +46,13 @@ void BufferEx::calcularOperacion(int rs, int rt, int rd, int signExt){
         this->resultado = rt;
     }else if(this->nombreOperacion == "sw"){
         this->resultado = rt;
+    }else if(this->nombreOperacion == "beq"){
+        this->resultado = rs-rt;
+        if(this->resultado == 0){
+	    this->saltar = 1;
+	} else {
+	    this->saltar = 0;
+	}
     }
 }
 
@@ -64,3 +71,5 @@ size_t BufferEx::getRt(){
 size_t BufferEx::getRs(){
     return this->rs;
 }
+
+

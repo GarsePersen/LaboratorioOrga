@@ -88,7 +88,7 @@ int myMain(){
         lineaControl.modificarLinea(7, 0);
         lineaControl.modificarLinea(8, 0);
         lineaControl.modificarLinea(9, 0);
-        while((estado.bufferWbOpCode != "")||(estado.programCounter()<5)){
+        while((estado.bufferWbOpCode != "")||(estado.obtenerCiclo()<6)){
 	    
             estado.pipeline("",-1,-2,-3,-4, lineaControl);
             cout << estado.toString() << endl;

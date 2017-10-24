@@ -19,6 +19,7 @@ class BufferEx{
         void setRsRdRt(size_t rs, size_t rt, size_t rd);
         string opCode();
         int getResultado();
+	int saltar;
         size_t getRt();
         size_t getRd();
         size_t getRs();

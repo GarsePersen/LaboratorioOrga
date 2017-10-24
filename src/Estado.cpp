@@ -10,7 +10,8 @@ Estado::Estado(){
     for(size_t i = 0; i < NUMERO_REGISTROS; i++){
         this->registros[i] = 0;
     }
-    this->ciclos = 0;
+    this->hazardControl = "-";
+    this->ciclos = 1;
 }
 
 /* Funcion que verifica si el registro se puede modificar, es decir, esta entre el registro cero y treinta y dos
@@ -144,16 +145,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     Archivo archivo;
     stringstream ss;
     stringstream ssHazard;
-    ss << "Ciclo: " << this->ciclos << ",";
-    ss << bufferIf.getOpCode() <<",";
-    ss << bufferId.opCode()<<",";
-    ss << bufferEx.opCode() << ",";
-    ss << bufferMem.opCode() << ",";
-    ss << this->bufferWbOpCode << "\n";
-    archivo.escribirArchivoSalidaPipeline(ss.str(), this->nombreArchivoSalida);
-    ssHazard << "Ciclo: " << this->ciclos << ",";
-    ssHazard << this->hazardControl <<","<<this->hazardR1 <<" " <<this->hazardR2<<"\n";
-    archivo.escribirArchivoSalidaHazard(ssHazard.str(), this->nombreArchivoSalidaHazard);
     comprobarForwarding(bufferIf, bufferId);
     //Si forwarding es 1, se aumenta un ciclo las instrucciones que seguian, y antes del lw se agrega un nop
     if(this->forwarding == 1){
@@ -166,7 +157,7 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         bufferMem.setRsRdRt(bufferEx.getRs(), bufferEx.getRd(), bufferEx.getRt());
         bufferMem.setResultado(bufferEx.getResultado());
         bufferMem.opCode(bufferEx.opCode());
-        
+       	bufferEx.saltar = 0; 
 	bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
         bufferEx.calcularOperacion(bufferId.getValorRs(), bufferEx.getResultado(), bufferId.getValorRd(), bufferId.getSignExt());	
@@ -196,7 +187,7 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     
     
     //Esta parte es de la etapa WB, la cual no tiene buffer
-    if(this->ciclos > 3){
+    if(this->ciclos > 4){
 	//Si escribe en memoria
         if(bufferMem.getLineaControl().getLinea(7) == 1){
 		bufferMem.memWrite();
@@ -209,14 +200,14 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         }
 	this->bufferWbOpCode=bufferMem.opCode();
     }
-    if(this->ciclos > 2){
+    if(this->ciclos > 3){
         bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
         bufferMem.setRsRdRt(bufferEx.getRs(), bufferEx.getRd(), bufferEx.getRt());
         bufferMem.setResultado(bufferEx.getResultado());
         bufferMem.opCode(bufferEx.opCode());
     }
 
-    if(this->ciclos > 1){
+    if(this->ciclos > 2){
         
         bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
@@ -230,14 +221,48 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
             bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
         }
         bufferEx.setRsRdRt(bufferId.getRs(), bufferId.getRd(), bufferId.getRt());
-        //cout << bufferId.opCode() <<" "<< bufferId.getRs() <<" "<< bufferId.getRt() <<" "<< bufferId.getRd() <<" "<< bufferId.getSignExt() << endl;
     }
 
-    if(this->ciclos > 0){
+    if(this->ciclos > 1){
         bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
         bufferId.setRsRtRd(bufferIf.getRs(), bufferIf.getRt(), bufferIf.getRd());
     }
     bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
+    ss << "Ciclo: " << this->ciclos << ",";
+    ss << bufferIf.getOpCode() <<",";
+    ss << bufferId.opCode()<<",";
+    ss << bufferEx.opCode() << ",";
+    ss << bufferMem.opCode() << ",";
+    ss << this->bufferWbOpCode << "\n";
+    archivo.escribirArchivoSalidaPipeline(ss.str(), this->nombreArchivoSalida);
+    ssHazard << "Ciclo: " << this->ciclos << ",";
+    ssHazard << this->hazardControl <<","<<this->hazardR1 <<" " <<this->hazardR2<<"\n";
+    archivo.escribirArchivoSalidaHazard(ssHazard.str(), this->nombreArchivoSalidaHazard);
+    //Si el beq salta
+    if(bufferEx.saltar == 1){
+	this->hazardControl = "X";
+        programCounter(bufferEx.getRd());
+	bufferEx.saltar = 0;
+        lineaControl.modificarLinea(0, 0); 
+        lineaControl.modificarLinea(1, 0);
+        lineaControl.modificarLinea(2, 0);
+        lineaControl.modificarLinea(3, 0);
+        lineaControl.modificarLinea(4, 0);
+        lineaControl.modificarLinea(5, 0);
+        lineaControl.modificarLinea(6, 0);
+        lineaControl.modificarLinea(7, 0);
+        lineaControl.modificarLinea(8, 0);
+        lineaControl.modificarLinea(9, 0);
+	bufferEx.opCode("nop");
+	bufferId.decode("nop", 0, 0, 0, 0, lineaControl);
+	bufferIf.operacion("nop",0,0,0,0,lineaControl); 
+
+
+	modificarCiclo(1);
+	return;
+    } else {
+	this->hazardControl = "-";
+    }
     programCounter(programCounter() + 1);
     modificarCiclo(1);
 }
