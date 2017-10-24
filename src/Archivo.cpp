@@ -5,10 +5,17 @@
 #include "Archivo.hpp"
 using namespace std;
 
-void Archivo::escribirArchivoSalida(string salida){
+void Archivo::escribirArchivoSalidaHazard(string salida, string nombreArchivoSalidaHazard){
     ofstream myfile;
-    myfile.open ("example.csv", ios_base::app);
-    myfile << salida;;
+    myfile.open (nombreArchivoSalidaHazard+".csv", ios_base::app);
+    myfile << salida;
+    myfile.close();
+}
+
+void Archivo::escribirArchivoSalidaPipeline(string salida, string nombreArchivoSalida){
+    ofstream myfile;
+    myfile.open (nombreArchivoSalida+".csv", ios_base::app);
+    myfile << salida;
     myfile.close();
 }
 

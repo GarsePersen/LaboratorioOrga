@@ -32,16 +32,19 @@ int main(int argc, char **argv){
  * */
 
 int myMain(){
-    //Archivo archivo;
+    Archivo archivo;
     Estado estado;
     string nombreArchivoEntradaMips;
     string nombreArchivoSalida;
+    string nombreArchivoSalidaHazard;
     string nombreArchivoEntradaLineas;
     //Se piden los archivos de entrada y salida al usuario
     cout << "Ingrese el nombre del archivo con las instrucciones mips: ";
     cin >> nombreArchivoEntradaMips;
-    cout << "Ingrese el nombre del archivo de salida: ";
+    cout << "Ingrese el nombre del archivo de salida de la traza: ";
     cin >> nombreArchivoSalida; 
+    cout << "Ingrese el nombre del archivo de salida de hazard: ";
+    cin >> nombreArchivoSalidaHazard; 
     //Se llama a funcion que parsea el archivo de entrada
     ifstream myFile (nombreArchivoEntradaMips);
     if(myFile.good()){
@@ -57,6 +60,10 @@ int myMain(){
     //Se transforman los labels del archivo de entrada
     transformarLabels(programa); 
     LineaControl lineaControl;
+    estado.nombreArchivoSalida = nombreArchivoSalida;
+    estado.nombreArchivoSalidaHazard = nombreArchivoSalidaHazard;
+    archivo.escribirArchivoSalidaPipeline(",IF,ID,EX,MEM,WB\n", nombreArchivoSalida);
+    archivo.escribirArchivoSalidaPipeline(",Control,Datos\n", nombreArchivoSalidaHazard);
     //Se hace un try-catch para realizar un ciclo mientras el programa no termine y que no salte la excepcion
     try{
         bool end_program = false;
@@ -67,11 +74,10 @@ int myMain(){
             auto i = programa.at(estado.programCounter());
             //Se ejecuta la linea
             i->run(estado, lineaControl);
-            //cout << estado.toString() << endl;
+            cout << estado.toString() << endl;
         }
         //Catch del error, significa que termino el programa
     }catch(logic_error e){
-        int aux = 0;
         lineaControl.modificarLinea(0, 0); 
         lineaControl.modificarLinea(1, 0);
         lineaControl.modificarLinea(2, 0);
@@ -82,10 +88,10 @@ int myMain(){
         lineaControl.modificarLinea(7, 0);
         lineaControl.modificarLinea(8, 0);
         lineaControl.modificarLinea(9, 0);
-        while(aux < 4){
+        while((estado.bufferWbOpCode != "")||(estado.programCounter()<5)){
+	    
             estado.pipeline("",-1,-2,-3,-4, lineaControl);
-            //cout << estado.toString() << endl;
-	    aux = aux+1;
+            cout << estado.toString() << endl;
         }
         cout << "El programa ha finalizado exitosamente" << endl;
     }

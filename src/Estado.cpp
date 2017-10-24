@@ -72,20 +72,92 @@ void Estado::modificarCiclo(int valor){
     this->ciclos = obtenerCiclo() + valor;
 }
 
+string Estado::regToStr(size_t reg){
+    if(reg == 0){
+        return "$zero";
+    }else if(reg == 1){
+        return "$at";
+    }else if(reg == 2){
+        return "$v0";
+    }else if(reg == 3){
+        return "$v1";
+    }else if(reg == 4){
+        return "$a0";    
+    }else if(reg == 5){
+        return "$a1";
+    }else if(reg == 6){
+        return "$a2";
+    }else if(reg == 7){
+        return "$a3";
+    }else if(reg == 8){
+        return "$t0";
+    }else if(reg == 9){
+        return "$t1";
+    }else if(reg == 10){
+        return "$t2";
+    }else if(reg == 11){
+        return "$t3";
+    }else if(reg == 12){
+        return "$t4";
+    }else if(reg == 13){
+        return "$t5";
+    }else if(reg == 14){
+        return "$t6";
+    }else if(reg == 15){
+        return "$t7"; 
+    }else if(reg == 16){
+        return "$s0";
+    }else if(reg == 17){
+        return "$s1";
+    }else if(reg == 18){
+        return "$s2";
+    }else if(reg == 19){
+        return "$s3";
+    }else if(reg == 20){
+        return "$s4";
+    }else if(reg == 21){
+        return "$s5";
+    }else if(reg == 22){
+        return "$s6";
+    }else if(reg == 23){
+        return "$s7";
+    }else if(reg == 24){
+        return "$t8";
+    }else if(reg == 25){
+        return "$t9";
+    }else if(reg == 26){
+        return "$k0";
+    }else if(reg == 27){
+        return "$k1";
+    }else if(reg == 28){
+        return "$gp";
+    }else if(reg == 29){
+        return "$sp";
+    }else if(reg == 30){
+        return "$fp";
+    }else if(reg == 31){
+        return "$ra";
+    }
+}
 
 void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int signExt, LineaControl &lineaControl){
-    stringstream ss;
-    
-    ss << "Ciclo: " << this->ciclos << "   ";
-    ss << bufferIf.getOpCode() <<"   "; 
-    ss << bufferId.opCode()<<"   ";
-    ss << bufferEx.opCode() << "   ";
-    ss << bufferMem.opCode() << endl;
     Archivo archivo;
-    archivo.escribirArchivoSalida(ss.str());
+    stringstream ss;
+    stringstream ssHazard;
+    ss << "Ciclo: " << this->ciclos << ",";
+    ss << bufferIf.getOpCode() <<",";
+    ss << bufferId.opCode()<<",";
+    ss << bufferEx.opCode() << ",";
+    ss << bufferMem.opCode() << ",";
+    ss << this->bufferWbOpCode << "\n";
+    archivo.escribirArchivoSalidaPipeline(ss.str(), this->nombreArchivoSalida);
+    ssHazard << "Ciclo: " << this->ciclos << ",";
+    ssHazard << this->hazardControl <<","<<this->hazardR1 <<" " <<this->hazardR2<<"\n";
+    archivo.escribirArchivoSalidaHazard(ssHazard.str(), this->nombreArchivoSalidaHazard);
     comprobarForwarding(bufferIf, bufferId);
     //Si forwarding es 1, se aumenta un ciclo las instrucciones que seguian, y antes del lw se agrega un nop
     if(this->forwarding == 1){
+	this->bufferWbOpCode=bufferMem.opCode();
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
@@ -117,18 +189,25 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
 	
     comprobarHazard(bufferId, bufferMem);
 	
-    if(this->hazard == 0){
+    if(this->hazardDatos == 0){
         comprobarHazard(bufferId, bufferEx);
     }
 
     
     
-
-    if(this->ciclos > 3){ 
+    //Esta parte es de la etapa WB, la cual no tiene buffer
+    if(this->ciclos > 3){
+	//Si escribe en memoria
+        if(bufferMem.getLineaControl().getLinea(7) == 1){
+		bufferMem.memWrite();
+		modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
+	}
+        //Si escribe en registro
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
         }
+	this->bufferWbOpCode=bufferMem.opCode();
     }
     if(this->ciclos > 2){
         bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
@@ -141,11 +220,11 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         
         bufferEx.opCode(bufferId.opCode());
         bufferEx.iniciarLineaControl(bufferId.getLineaControl());
-        if(this->hazard == 1){
+        if(this->hazardDatos == 1){
             bufferEx.calcularOperacion(bufferEx.getResultado(), bufferId.getValorRt(), bufferId.getValorRt(), bufferId.getSignExt());
-        } else if(this->hazard == 2) {
+        } else if(this->hazardDatos == 2) {
             bufferEx.calcularOperacion(bufferId.getValorRs(), bufferEx.getResultado(), bufferId.getValorRd(), bufferId.getSignExt());	
-        } else if(this->hazard == 3){
+        } else if(this->hazardDatos == 3){
             bufferEx.calcularOperacion(bufferEx.getResultado(), bufferEx.getResultado(), bufferId.getValorRd(), bufferId.getSignExt());	
         } else {
             bufferEx.calcularOperacion(bufferId.getValorRs(), bufferId.getValorRt(), bufferId.getValorRd(), bufferId.getSignExt());	
@@ -158,7 +237,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         bufferId.decode(bufferIf.getOpCode(), this->registros[bufferIf.getRs()], this->registros[bufferIf.getRt()], this->registros[bufferIf.getRd()], bufferIf.getSignExt(), bufferIf.getLineaControl());
         bufferId.setRsRtRd(bufferIf.getRs(), bufferIf.getRt(), bufferIf.getRd());
     }
-    
     bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
     programCounter(programCounter() + 1);
     modificarCiclo(1);
@@ -167,40 +245,54 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
 
 void Estado::comprobarHazard(BufferId &bufferId, BufferEx &bufferEx){
     //Si suceden ambas posibilidades
+    this->hazardR1 = "-";
+    this->hazardR2 = "-";
     if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getRd() == bufferId.getRs() && (bufferEx.getRd() == bufferId.getRt()))){
-        this->hazard = 3;
+        this->hazardDatos = 3;
+	this->hazardR1 = this->regToStr(bufferId.getRs());
+	this->hazardR2 = this->regToStr(bufferId.getRt());
         return;
     }
     
     if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getRd() == bufferId.getRs())){
-        this->hazard = 1;
+        this->hazardDatos = 1;
+	this->hazardR1 = this->regToStr(bufferId.getRs());
         return;
     }
 
     if((bufferEx.getLineaControl().getLinea(9) == 1) && (bufferEx.getRd() == bufferId.getRt())){
-        this->hazard = 2;
+        this->hazardDatos = 2;
+	this->hazardR2 = this->regToStr(bufferId.getRt());
         return;
     }
-    this->hazard = 0;
+    this->hazardDatos = 0;
     return;
 }
 
 
 void Estado::comprobarHazard(BufferId &bufferId, BufferMem &bufferMem){
     //Si suceden ambas posibilidades 
+    this->hazardR1 = "-";
+    this->hazardR2 = "-";
     if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getRd() == bufferId.getRs()) && (bufferMem.getRd() == bufferId.getRt())){
-        this->hazard = 3;
+        this->hazardDatos = 3;
+	this->hazardR1 = this->regToStr(bufferId.getRs());
+	this->hazardR2 = this->regToStr(bufferId.getRt());
         return;
     }
     if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getRd() == bufferId.getRs())){
-        this->hazard = 1;
+        this->hazardDatos = 1;
+	this->hazardR1 = bufferId.getRs();
+	this->hazardR1 = this->regToStr(bufferId.getRs());
         return;
     }
     if((bufferMem.getLineaControl().getLinea(9) == 1) && (bufferMem.getRd() == bufferId.getRt())){
-        this->hazard = 2;
+        this->hazardDatos = 2;
+	this->hazardR2 = bufferId.getRt();
+	this->hazardR2 = this->regToStr(bufferId.getRt());
         return;
     }
-    this->hazard = 0;
+    this->hazardDatos = 0;
 }
 
 void Estado::comprobarForwarding(BufferIf &bufferIf, BufferId &bufferId){

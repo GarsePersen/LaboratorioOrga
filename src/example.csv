@@ -8,3 +8,43 @@ Ciclo: 6   addi   lw   addi   nop
 Ciclo: 7   addi   nop   lw   addi
 Ciclo: 8      addi   nop   lw
 Ciclo: 9         addi   nop
+Ciclo: 0            
+Ciclo: 1   addi         
+Ciclo: 2   lw   addi      
+Ciclo: 3   addi   lw   addi   
+Ciclo: 4   addi   nop   lw   addi
+Ciclo: 5   lw   addi   nop   lw
+Ciclo: 6   addi   lw   addi   nop
+Ciclo: 7   addi   nop   lw   addi
+Ciclo: 8      addi   nop   lw
+Ciclo: 9         addi   nop
+Ciclo: 0   ,,,
+Ciclo: 1   addi,,,
+Ciclo: 2   lw,addi,,
+Ciclo: 3   addi,lw,addi,
+Ciclo: 4   addi,nop,lw,addi
+Ciclo: 5   lw,addi,nop,lw
+Ciclo: 6   addi,lw,addi,nop
+Ciclo: 7   addi,nop,lw,addi
+Ciclo: 8   ,addi,nop,lw
+Ciclo: 9   ,,addi,nop
+Ciclo: 0,,,,
+Ciclo: 1,addi,,,
+Ciclo: 2,lw,addi,,
+Ciclo: 3,addi,lw,addi,
+Ciclo: 4,addi,nop,lw,addi
+Ciclo: 5,lw,addi,nop,lw
+Ciclo: 6,addi,lw,addi,nop
+Ciclo: 7,addi,nop,lw,addi
+Ciclo: 8,,addi,nop,lw
+Ciclo: 9,,,addi,nop
+Ciclo: 0,,,,
+Ciclo: 1,addi,,,
+Ciclo: 2,lw,addi,,
+Ciclo: 3,addi,lw,addi,
+Ciclo: 4,addi,nop,lw,addi
+Ciclo: 5,lw,addi,nop,lw
+Ciclo: 6,addi,lw,addi,nop
+Ciclo: 7,addi,nop,lw,addi
+Ciclo: 8,,addi,nop,lw
+Ciclo: 9,,,addi,nop

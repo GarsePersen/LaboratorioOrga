@@ -1,5 +1,6 @@
-addi $t4, $t1, 12
-lw $t1, 0($t4)
-addi $t2, $t1, 10
-lw $t2, 0($t4)
-addi $t2, $t2, 10
+lw $t1, 0($sp)
+add $t0, $t0, $t1
+addi $t2, $zero, 3
+sub $t3, $t2, $t1
+sw $t2, 0($sp)
+addi $s0, $t2, 1

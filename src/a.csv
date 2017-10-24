@@ -1,0 +1,36 @@
+,IF,ID,EX,MEM,WB
+Ciclo: 0,,,,,
+Ciclo: 1,lw,,,,
+Ciclo: 2,add,lw,,,
+Ciclo: 3,addi,add,lw,,
+Ciclo: 4,sub,addi,add,lw,
+Ciclo: 5,sw,sub,addi,add,lw
+Ciclo: 6,addi,sw,sub,addi,add
+Ciclo: 7,,addi,sw,sub,addi
+Ciclo: 8,,,addi,sw,sub
+Ciclo: 9,,,,addi,sw
+Ciclo: 10,,,,,addi
+,IF,ID,EX,MEM,WB
+Ciclo: 0,,,,,
+Ciclo: 1,lw,,,,
+Ciclo: 2,add,lw,,,
+Ciclo: 3,addi,add,lw,,
+Ciclo: 4,sub,addi,add,lw,
+Ciclo: 5,sw,sub,addi,add,lw
+Ciclo: 6,addi,sw,sub,addi,add
+Ciclo: 7,,addi,sw,sub,addi
+Ciclo: 8,,,addi,sw,sub
+Ciclo: 9,,,,addi,sw
+Ciclo: 10,,,,,addi
+,IF,ID,EX,MEM,WB
+Ciclo: 0,,,,,
+Ciclo: 1,lw,,,,
+Ciclo: 2,add,lw,,,
+Ciclo: 3,addi,add,lw,,
+Ciclo: 4,sub,addi,add,lw,
+Ciclo: 5,sw,sub,addi,add,lw
+Ciclo: 6,addi,sw,sub,addi,add
+Ciclo: 7,,addi,sw,sub,addi
+Ciclo: 8,,,addi,sw,sub
+Ciclo: 9,,,,addi,sw
+Ciclo: 10,,,,,addi

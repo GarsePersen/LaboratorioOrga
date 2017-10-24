@@ -10,7 +10,8 @@ class Archivo{
     public:
         vector<int> archivoEntrada(string nombre);
 	void archivoSalida(vector<string> lineaControlSalida, string nombre);
-	void escribirArchivoSalida(string salida);
+	void escribirArchivoSalidaPipeline(string salida, string nombreArchivoSalida);
+	void escribirArchivoSalidaHazard(string salida, string nombreArchivoSalidaHazard);
 };
 
 #endif

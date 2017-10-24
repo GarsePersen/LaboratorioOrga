@@ -20,12 +20,15 @@ class Estado{
         BufferId bufferId;
         BufferEx bufferEx;
         BufferMem bufferMem;
-        int hazard;
-	    int forwarding;
+        int hazardDatos;
+        int hazardControl;
+	int forwarding;
+	string hazardR1, hazardR2;
         int registros[NUMERO_REGISTROS];
         void verificarRegistro(size_t numero) const;
     public:
         Estado();
+	string bufferWbOpCode;
         int obtenerCiclo();
         void modificarCiclo(int valor);
         void pipeline(string operacion, size_t rs, size_t rd, size_t rt, int signExt, LineaControl &lineaControl);
@@ -33,10 +36,13 @@ class Estado{
         void programCounter(int valor);
         void modificarRegistro(size_t numero, int valor);
         int obtenerValor(size_t numero) const;
-	    void comprobarHazard(BufferId &bufferId, BufferEx &bufferEx);
-	    void comprobarHazard(BufferId &bufferId, BufferMem &bufferMem);
+	void comprobarHazard(BufferId &bufferId, BufferEx &bufferEx);
+	void comprobarHazard(BufferId &bufferId, BufferMem &bufferMem);
         void comprobarForwarding(BufferIf &bufferIf, BufferId &bufferId);
-        string toString() const;
+	string regToStr(size_t reg);
+        string nombreArchivoSalida;
+        string nombreArchivoSalidaHazard;
+	string toString() const;
 };
 
 
