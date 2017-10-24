@@ -76,6 +76,37 @@ void Estado::modificarCiclo(int valor){
 
 void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int signExt, LineaControl &lineaControl){
     
+    comprobarForwarding(bufferIf, bufferId);
+    cout << "forwarding: "<<this->forwarding << endl;
+    //Si forwarding es 1, se aumenta un ciclo las instrucciones que seguian, y antes del lw se agrega un nop
+    if(this->forwarding == 1){
+        if(bufferMem.getLineaControl().getLinea(9) == 1){
+            bufferMem.regWrite();
+            modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
+        }
+        bufferMem.iniciarLineaControl(bufferEx.getLineaControl());
+        bufferMem.setRsRdRt(bufferEx.getRs(), bufferEx.getRd(), bufferEx.getRt());
+        bufferMem.setResultado(bufferEx.getResultado());
+        bufferMem.opCode(bufferEx.opCode());
+        
+	bufferEx.opCode(bufferId.opCode());
+        bufferEx.iniciarLineaControl(bufferId.getLineaControl());
+        bufferEx.calcularOperacion(bufferId.getValorRs(), bufferEx.getResultado(), bufferId.getValorRd(), bufferId.getSignExt());	
+        bufferEx.setRsRdRt(bufferId.getRs(), bufferId.getRd(), bufferId.getRt());
+        lineaControl.modificarLinea(0, 0); 
+        lineaControl.modificarLinea(1, 0);
+        lineaControl.modificarLinea(2, 0);
+        lineaControl.modificarLinea(3, 0);
+        lineaControl.modificarLinea(4, 0);
+        lineaControl.modificarLinea(5, 0);
+        lineaControl.modificarLinea(6, 0);
+        lineaControl.modificarLinea(7, 0);
+        lineaControl.modificarLinea(8, 0);
+        lineaControl.modificarLinea(9, 0);
+        bufferId.decode("nop", -1, -2, -3, -4, lineaControl);
+        bufferId.setRsRtRd(0, 1, 2);
+    	modificarCiclo(1);
+    }
 	
     comprobarHazard(bufferId, bufferMem);
 	
@@ -83,21 +114,13 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
         comprobarHazard(bufferId, bufferEx);
     }
 
-    //stringstream ss;
+    stringstream ss;
     
-    cout <<"Hazard: "<< this->hazard<<"Ciclo: "<<this->ciclos<<endl;
     
 
     if(this->ciclos > 3){
         
-      //  ss << bufferMem.opCode() << " ";
-
-        for(int aux = 3; aux < this->ciclos; aux++){
-          //  ss << "    ";
-
-        }
-        //ss <<"IF  ID  EX  MEM WB" << endl;
-        //cout << ss.str();
+        cout << ss.str();
         if(bufferMem.getLineaControl().getLinea(9) == 1){
             bufferMem.regWrite();
             modificarRegistro(bufferMem.getRd(), bufferMem.getValorRd());
@@ -134,8 +157,6 @@ void Estado::pipeline(string operacion, size_t rs, size_t rd, size_t rt, int sig
     
     bufferIf.operacion(operacion, rs, rt, rd, signExt, lineaControl);
     
-    comprobarForwarding(bufferIf, bufferId);
-    cout << "fowrarding: "<<this->forwarding << endl;
     programCounter(programCounter() + 1);
     modificarCiclo(1);
 }
@@ -180,10 +201,8 @@ void Estado::comprobarHazard(BufferId &bufferId, BufferMem &bufferMem){
 }
 
 void Estado::comprobarForwarding(BufferIf &bufferIf, BufferId &bufferId){
-    cout << bufferId.opCode() <<" "<<bufferId.getRt() <<" "<< bufferIf.getRt() <<" " <<bufferIf.getRs()<< endl;
-    
     if(bufferId.getLineaControl().getLinea(3) == 1){
-        if((bufferId.getRt() == bufferIf.getRs()) ||(bufferId.getRt() == bufferIf.getRt())){
+        if((bufferId.getRd() == bufferIf.getRs()) ||(bufferId.getRt() == bufferIf.getRt())){
             this->forwarding = 1;
             return;
         }

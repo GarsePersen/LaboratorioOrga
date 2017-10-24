@@ -61,15 +61,13 @@ int myMain(){
     try{
         bool end_program = false;
         while(!end_program){
-            cout << estado.toString() << endl;
-            //Variable que guarda el estado de la linea
-            string estadoLinea = "Correcto";
             //Se obtiene el valor del programCounter
             int programCounterActual = estado.programCounter();
             //Se verifica que linea es la que se tiene que ejecutar
             auto i = programa.at(estado.programCounter());
             //Se ejecuta la linea
             i->run(estado, lineaControl);
+            cout << estado.toString() << endl;
         }
         //Catch del error, significa que termino el programa
     }catch(logic_error e){

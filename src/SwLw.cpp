@@ -58,5 +58,4 @@ void SwLw::run(Estado &estado, LineaControl &lineaControl){
         default:
             throw logic_error("La instruccion no corresponde a un Save/Load word");
     }
-    estado.programCounter(estado.programCounter() + 1);
 }

@@ -45,9 +45,6 @@ void BufferEx::calcularOperacion(int rs, int rt, int rd, int signExt){
     }else if(this->nombreOperacion == "lw"){
         this->resultado = rt;
     }
-    else{
-        this->resultado = -1;
-    }
 }
 
 int BufferEx::getResultado(){
